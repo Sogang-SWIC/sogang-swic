@@ -202,10 +202,19 @@
     let portfolioContainer = select('.portfolio-container');
     if (portfolioContainer) {
       let portfolioIsotope = new Isotope(portfolioContainer, {
-        itemSelector: '.portfolio-item'
+        itemSelector: '.portfolio-item',
+        filter: '.filter-app' // 기본 필터 설정
       });
 
       let portfolioFilters = select('#portfolio-flters li', true);
+
+      // 페이지 로드 시 기본 필터 활성화
+      portfolioFilters.forEach(function(el) {
+        el.classList.remove('filter-active');
+        if (el.getAttribute('data-filter') === '.filter-app') {
+          el.classList.add('filter-active');
+        }
+      });
 
       on('click', '#portfolio-flters li', function(e) {
         e.preventDefault();
@@ -222,8 +231,8 @@
         });
       }, true);
     }
-
   });
+
 
   /**
    * Initiate portfolio lightbox 
